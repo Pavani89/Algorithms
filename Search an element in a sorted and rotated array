@@ -1,0 +1,48 @@
+'''
+pseudocode:
+1. The main idea for finding pivot is – for a sorted (in increasing order) and pivoted array, pivot element is the only element for which
+   next element to it is smaller than it.
+2. Using the above statement and binary search pivot can be found.
+3. After the pivot is found out divide the array in two sub-arrays.
+4. Now the individual sub – arrays are sorted so the element can be searched using Binary Search.
+
+time complexity: O(log n) Binary Search requires log n comparisons to find the element. So time complexity is O(log n).
+space complexity: O(1)
+'''
+
+
+def elementPivotSearch(array, min, max, x):
+    if max >= min:
+
+        mid = (min + max) // 2
+        if array[mid] == x:
+            return mid
+
+        # If array[min...mid] is sorted
+        if array[min] <= array[mid]:
+
+            # check if key lies in left half or other half
+            if array[min] <= x <= array[mid]:
+                return elementPivotSearch(array, min, mid - 1, x)
+            return elementPivotSearch(array, mid + 1, max, x)
+
+        # If arr[l..mid] is not sorted, then arr[mid... r]
+        # must be sorted
+        if array[mid] <= x <= array[max]:
+            return elementPivotSearch(array, mid + 1, max, x)
+        return elementPivotSearch(array, min, mid - 1, x)
+
+    else:
+        # Element is not present in the array
+        return -1
+
+
+# Main
+array = [4, 5, 6, 7, 8, 9, 1, 2, 3]
+x = 6
+result = elementPivotSearch(array, 0, len(array) - 1, x)
+
+if result != -1:
+    print("Element is present at index % d" % result)
+else:
+    print("Element is not present in array")
