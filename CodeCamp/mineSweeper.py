@@ -15,7 +15,8 @@ def mine_sweeper(bombs, num_rows, num_cols):
     field = [[0 for i in range(num_cols)] for j in range(num_rows)]
     #print(field)
 
-    # Set the fields containing the bomb to -1
+    # Set the fields containing the bomb to -1 
+    # Also for the proximity bomb logic this acts as the center point
     for bomb_locations in bombs:
         (bomb_row, bomb_col) = bomb_locations
         field[bomb_row][bomb_col] = -1
